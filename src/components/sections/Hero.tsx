@@ -8,7 +8,7 @@ const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.3 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
   },
 };
 
@@ -32,6 +32,8 @@ export function Hero() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
+        whileInView={{ y: [0, -10, 0] }}
+        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
       >
         <motion.div variants={childVariants} className="inline-block">
           <span className="px-4 py-1.5 rounded-full border border-accent/30 bg-accent/10 text-accent text-sm font-medium tracking-wide">
@@ -40,22 +42,31 @@ export function Hero() {
         </motion.div>
 
         <motion.h1
-          variants={childVariants}
-          className="text-5xl md:text-7xl font-extrabold font-outfit tracking-tighter leading-tight"
+          className="text-4xl md:text-6xl lg:text-7xl font-extrabold font-outfit tracking-tighter leading-tight flex flex-wrap justify-center gap-x-[0.25em]"
         >
-          Hi, I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-500 dark:from-sky-400 dark:to-accent">Sohaib Latif</span>
+          {"Crafting Immersive Digital Experiences with".split(" ").map((word, i) => (
+            <motion.span key={i} variants={childVariants} className="inline-block">
+              {word}
+            </motion.span>
+          ))}
+          <motion.span
+            variants={childVariants}
+            className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#00f2ff] dark:from-sky-400 dark:to-[#00f2ff] whitespace-nowrap"
+          >
+            Code & Canvas.
+          </motion.span>
         </motion.h1>
 
         <motion.p
           variants={childVariants}
           className="text-xl md:text-2xl text-foreground/80 max-w-3xl mx-auto font-light leading-relaxed"
         >
-          Supply Chain Analyst | Bridging Engineering, Business, and International Development | Driving Operational Excellence, Sustainability & ESG | LEED Green Associate (In Progress)
+          I am a Full-Stack Developer & Analyst specializing in building high-performance applications. By blending efficient engineering with dynamic interactivity, I create products that aren&apos;t just functional—they&apos;re memorable.
         </motion.p>
 
         <motion.div variants={childVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
           <Button size="lg" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
-            View Projects
+            View My Solutions
           </Button>
           <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
             <Button size="lg" variant="outline">

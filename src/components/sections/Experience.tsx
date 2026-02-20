@@ -60,23 +60,49 @@ export function Experience() {
         transition={{ duration: 0.6 }}
         className="mb-16 max-w-3xl"
       >
-        <h2 className="text-4xl font-bold font-outfit mb-6">Experience & Background</h2>
         <div className="space-y-4 text-foreground/80 leading-relaxed text-justify max-w-4xl mx-auto md:mx-0">
           <p>
-            I am a multi-disciplinary professional with over 12 years of experience driving operational excellence at the intersection of Mechanical Engineering, Business Strategy, and International Development. My career is defined by a commitment to optimizing complex supply chains and ensuring 100% material quality and on-time delivery in high-stakes environments.
+            I am a Full-Stack Engineer with an Engineering MBA and a background in International Development Studies. This unique trifecta allows me to approach software not just as a coder, but as a strategic problem-solver.
           </p>
           <p>
-            In my current role as a Supply Chain Analyst for the Government of Pakistan, I managed multimillion-dollar contract negotiations, achieving a 15% cost reduction in the 2024 fiscal year. However, my unique value lies in <strong className="text-accent">Supply Chain Digitization</strong>. Beyond traditional logistics, I leverage my background in React, Next.js, and AI to develop custom &apos;Smart Supply Chain&apos; solutions. By building bespoke predictive analytics dashboards, I bridge the gap between raw data and actionable operational intelligence, significantly increasing demand forecasting accuracy.
+            While I specialize in the MERN stack and Immersive 3D (Three.js), my MBA background ensures that every line of code I write is aligned with business scalability and ROI. Having studied International Development, I am deeply committed to inclusive design and building digital solutions that are accessible and impactful on a global scale.
           </p>
           <p>
-            As a LEED Green Associate (In Progress), I am deeply focused on the future of Sustainability and ESG. I specialize in material efficiency analysis and waste reduction initiatives to ensure that operational growth aligns with global environmental standards.
+            Whether I am architecting a complex backend or managing a product lifecycle, my goal is the same: Building technology that bridges the gap between human needs and business growth.
           </p>
+        </div>
+      </motion.div>
+
+      {/* Engineering & MBA Process */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+        className="mb-20 max-w-7xl"
+      >
+        <h3 className="text-2xl font-semibold font-outfit mb-8 flex items-center gap-3">
+          <span className="w-8 h-[1px] bg-accent" /> The Development Lifecycle
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { step: "01", title: "Discovery", desc: "Analyzing business requirements and ROI." },
+            { step: "02", title: "Architecture", desc: "Planning scalable infrastructures and systems." },
+            { step: "03", title: "Development", desc: "High-performance coding and active engineering." },
+            { step: "04", title: "Global Impact", desc: "Testing for accessibility and worldwide deployment." }
+          ].map((item, i) => (
+            <div key={i} className="glass p-6 rounded-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 font-mono text-4xl font-black text-foreground/5 transition-colors group-hover:text-accent/10">{item.step}</div>
+              <h4 className="text-lg font-bold text-accent mb-2">{item.title}</h4>
+              <p className="text-sm text-foreground/70">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Timeline */}
-        <div className="lg:col-span-2 space-y-6">
+        <div id="experience" className="lg:col-span-2 space-y-6 scroll-mt-32">
           <h3 className="text-2xl font-semibold font-outfit mb-6 flex items-center gap-3">
             <span className="w-8 h-[1px] bg-accent" /> Work History
           </h3>

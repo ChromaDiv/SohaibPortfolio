@@ -49,7 +49,14 @@ export function Footer() {
           </motion.a>
         </div>
 
-        <div className="text-xs text-foreground/50">
+        {/* The Signature */}
+        <div className="w-full text-center mt-12 mb-6">
+          <p className="font-outfit text-xl md:text-xl text-foreground font-medium italic opacity-90">
+            &quot;I don&apos;t just build apps; I build systems that empower people.&quot;
+          </p>
+        </div>
+
+        <div className="w-full text-center text-xs text-foreground/50 mt-4">
           © {new Date().getFullYear()} Sohaib Latif. All rights reserved.
         </div>
       </div>
