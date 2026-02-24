@@ -95,7 +95,7 @@ export function Hero() {
         <motion.div variants={childVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pt-10">
           <Button
             size="lg"
-            className="w-full sm:w-auto font-semibold px-8 py-6 text-lg tracking-wide rounded-full shadow-[0_4px_14px_0_rgba(59,130,246,0.39)] hover:shadow-[0_6px_20px_rgba(59,130,246,0.23)] hover:bg-[#2563eb] transition duration-200"
+            className="w-full sm:w-auto font-semibold px-8 py-4 text-lg tracking-wide rounded-full shadow-[0_4px_14px_0_rgba(59,130,246,0.39)] hover:shadow-[0_6px_20px_rgba(59,130,246,0.23)] hover:bg-[#2563eb] transition duration-200"
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
           >
             View My Solutions
@@ -104,7 +104,7 @@ export function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="w-full sm:w-auto font-semibold px-8 py-6 text-lg tracking-wide rounded-full border-black/10 dark:border-white/20 bg-transparent hover:bg-black/5 dark:bg-black/40 dark:hover:bg-black/60 text-foreground shadow-sm transition duration-200"
+              className="w-full sm:w-auto font-semibold px-8 py-4 text-lg tracking-wide rounded-full border-black/10 dark:border-white/20 bg-transparent hover:bg-black/5 dark:bg-black/40 dark:hover:bg-black/60 text-foreground shadow-sm transition duration-200"
             >
               Download Resume
             </Button>
