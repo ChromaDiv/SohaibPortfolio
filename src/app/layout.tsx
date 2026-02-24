@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { DynamicBackground } from "@/components/ui/DynamicBackground";
+import { AIAssistantClient } from "@/components/AIAssistantClient";
 import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -31,6 +32,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <AIAssistantClient />
         </ThemeProvider>
       </body>
     </html>
