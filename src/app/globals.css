@@ -16,9 +16,9 @@
   }
 
   .dark {
-    --background: #050a05;
+    --background: #020617;
     --foreground: #f8fafc;
-    --accent: #10b981;
+    --accent: #3b82f6;
   }
 }
 
@@ -40,11 +40,6 @@ html {
   scroll-behavior: smooth;
 }
 
-@media (pointer: fine) {
-  * {
-    cursor: none !important;
-  }
-}
 
 .glass {
   background: rgba(255, 255, 255, 0.7);

@@ -1,9 +1,12 @@
 import { Hero } from "@/components/sections/Hero";
-import { Experience } from "@/components/sections/Experience";
-import { Projects } from "@/components/sections/Projects";
-import { Skills } from "@/components/sections/Skills";
-import { Impact } from "@/components/sections/Impact";
-import { Contact } from "@/components/sections/Contact";
+import dynamic from "next/dynamic";
+
+// Dynamically import below-the-fold components to reduce initial bundle size
+const Experience = dynamic(() => import("@/components/sections/Experience").then(mod => mod.Experience));
+const Projects = dynamic(() => import("@/components/sections/Projects").then(mod => mod.Projects));
+const Skills = dynamic(() => import("@/components/sections/Skills").then(mod => mod.Skills));
+const Impact = dynamic(() => import("@/components/sections/Impact").then(mod => mod.Impact));
+const Contact = dynamic(() => import("@/components/sections/Contact").then(mod => mod.Contact));
 
 export default function Home() {
   return (

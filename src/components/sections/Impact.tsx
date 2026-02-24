@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
@@ -10,17 +10,16 @@ import * as THREE from "three";
 import * as random from "maath/random/dist/maath-random.esm";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { useTheme } from "next-themes";
+import { Globe, Users, TrendingUp, Cpu, Activity } from "lucide-react";
 
-function GlobalImpactGlobe() {
-  const { theme } = useTheme();
+function GlobalImpactGlobe({ color, isDark }: { color: string; isDark: boolean }) {
   const ref = useRef<THREE.Points>(null);
-  // Generate 5000 points (x, y, z) inside a sphere shape
-  const [sphere] = useState(() => random.inSphere(new Float32Array(15000), { radius: 2 }) as Float32Array);
+  const [sphere] = useState(() => random.inSphere(new Float32Array(9000), { radius: 1.5 }) as Float32Array);
 
   useFrame((state, delta) => {
     if (ref.current) {
-      ref.current.rotation.x -= delta / 10;
-      ref.current.rotation.y -= delta / 15;
+      ref.current.rotation.y += delta / 20;
+      ref.current.rotation.x += delta / 30;
     }
   });
 
@@ -28,10 +27,10 @@ function GlobalImpactGlobe() {
     <group rotation={[0, 0, Math.PI / 4]}>
       <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
         <PointMaterial
-          transparent={theme === "dark"}
-          opacity={1}
-          color={theme === "light" ? "#064e3b" : "#10b981"} // Extremely dark green for max contrast in light mode
-          size={theme === "light" ? 0.025 : 0.015} // Slightly larger in light mode to stand out
+          transparent
+          opacity={isDark ? 0.4 : 0.8}
+          color={color}
+          size={isDark ? 0.015 : 0.025}
           sizeAttenuation={true}
           depthWrite={false}
         />
@@ -42,105 +41,126 @@ function GlobalImpactGlobe() {
 
 const dimensions = [
   {
-    category: "The Engineering MBA (Scalability)",
-    angle: "Code is a business asset.",
-    text: "I apply management frameworks like Agile and Lean to the software lifecycle. My focus is on reducing technical debt and ensuring that the tech stack (MERN) evolves with the company's growth targets.",
+    category: "Strategic Scalability",
+    icon: <TrendingUp size={20} />,
+    angle: "Code is a Business Asset",
+    text: "Applying management frameworks like Agile and Lean to the software lifecycle. Every architectural decision is filtered through the lens of technical debt reduction and long-term business ROI.",
   },
   {
-    category: "International Development (Inclusivity)",
-    angle: "Global reach requires empathy.",
-    text: "My studies in International Development inform my commitment to Universal Design. I specialize in creating lightweight, high-performance web experiences that remain functional in regions with limited connectivity or aging hardware.",
+    category: "Inclusive Design",
+    icon: <Users size={20} />,
+    angle: "Global Reach via Empathy",
+    text: "Building for the 'Next Billion Users' by creating high-performance, lightweight web experiences that remain functional in low-bandwidth regions and on legacy hardware.",
   },
   {
-    category: "Technical Execution (Precision)",
-    angle: "Immersive, not distracting.",
-    text: "Using Three.js and AI, I build interfaces that simplify complex data. Whether it's an Amazon scraper or a 3D visualizer, the goal is always clear: Transforming raw data into actionable business intelligence.",
+    category: "Industrial Precision",
+    icon: <Cpu size={20} />,
+    angle: "Actionable Intelligence",
+    text: "Transforming raw data into actionable insights using Three.js and AI visualizers, simplifying complex global supply chain constraints into intuitive dashboards.",
   }
 ];
 
 export function Impact() {
-  const [isMobile, setIsMobile] = useState(false);
+  const { theme, resolvedTheme } = useTheme();
+  // Ensure we compute the correct theme even if set to 'system'
+  const currentTheme = theme === "system" ? resolvedTheme : theme;
+  const isDark = currentTheme === "dark";
+  const globeColor = isDark ? "#60a5fa" : "#2563eb"; // Darker blue for light mode contrast
   const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  // Parallax for the Globe container
-  const yParallax = useTransform(scrollYProgress, [0, 1], [50, -50]);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
-    <section ref={containerRef} className="py-24 px-6 md:px-12 max-w-7xl mx-auto relative overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-16"
-      >
-        <h2 className="text-4xl md:text-5xl font-bold font-outfit mb-4 text-emerald-600 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-emerald-400 dark:to-emerald-200">
-          Bridging the Digital Divide: Tech for Global Impact
-        </h2>
-        <p className="text-foreground/70 max-w-2xl mx-auto">
-          Building solutions for the Next Billion Users, leveraging the intersection of Engineering, Business, and Humanity.
-        </p>
-      </motion.div>
+    <section ref={containerRef} className="glass-section py-24 px-6 md:px-12 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto w-full">
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
-        {/* Left Column: 3D Global Perspective (with scroll parallax) */}
+        {/* Header - Aligned with CaseStudies.tsx */}
         <motion.div
-          style={{ y: yParallax }}
-          className="h-[400px] lg:h-[600px] w-full relative rounded-3xl overflow-hidden glass border-emerald-500/20 shadow-[0_0_40px_rgba(16,185,129,0.05)]"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="mb-16"
         >
-          <div className="absolute inset-0 z-[-1] bg-gradient-to-br from-background via-emerald-50/50 to-emerald-100/50 dark:via-[#050a05] dark:to-emerald-900/10" />
-          {!isMobile && (
-            <Canvas camera={{ position: [0, 0, 5.5], fov: 45 }}>
-              <GlobalImpactGlobe />
-            </Canvas>
-          )}
-          {isMobile && (
-            <div className="flex items-center justify-center h-full">
-              <div className="text-6xl animate-pulse delay-75">🌍</div>
-            </div>
-          )}
-          <div className="absolute bottom-6 left-6 right-6">
-            <div className="bg-white/95 dark:bg-[#050a05]/90 backdrop-blur-xl border border-emerald-500/20 p-4 rounded-xl shadow-[0_8px_30px_rgba(16,185,129,0.15)]">
-              <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-[0.2em] font-bold">Data Connectivity</span>
-              <p className="text-sm text-slate-800 dark:text-foreground/80 mt-1 font-medium">Simulating global data points and network connectivity in real-time.</p>
-            </div>
+          <div className="flex items-center gap-3 mb-4">
+            <Globe className="text-accent animate-spin-slow" size={20} />
+            <span className="text-xs font-mono font-bold uppercase tracking-[0.3em] text-accent">Global Footprint</span>
           </div>
+          <h2 className="text-4xl md:text-6xl font-bold font-outfit text-foreground tracking-tight leading-tight">
+            Bridging the <span className="text-accent italic">Digital Divide.</span>
+          </h2>
+          <p className="text-lg text-foreground/60 max-w-2xl font-inter mt-4">
+            Leveraging the intersection of Engineering, Business, and Humanity to build resilient solutions for global challenges.
+          </p>
         </motion.div>
 
-        {/* Right Column: Strategic Dimensions */}
-        <div className="space-y-6">
-          {dimensions.map((dim, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: idx * 0.15, duration: 0.5 }}
-            >
-              <GlassCard className="p-6 md:p-8 hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] group transition-all duration-500">
-                <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-500 uppercase tracking-[0.15em] mb-1 opacity-80 group-hover:opacity-100 transition-opacity">
-                    {dim.category}
-                  </span>
-                  <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-emerald-700 dark:group-hover:text-emerald-50 transition-colors">
-                    &quot;{dim.angle}&quot;
-                  </h3>
-                  <p className="text-foreground/70 text-sm leading-relaxed">{dim.text}</p>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+
+          {/* Left: 3D Visualization Component */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="lg:col-span-2 h-[500px] relative rounded-[2rem] border border-foreground/10 bg-white/40 dark:bg-background/40 overflow-hidden group"
+          >
+            <div className="absolute inset-0 z-0">
+              <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
+                <GlobalImpactGlobe color={globeColor} isDark={isDark} />
+              </Canvas>
+            </div>
+
+            {/* Tactical HUD Overlay */}
+            <div className="absolute bottom-6 left-6 right-6 z-10 space-y-3">
+              <div className="p-4 rounded-xl bg-background/80 backdrop-blur-md border border-foreground/10">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono font-bold text-accent uppercase tracking-widest">Connectivity Status</span>
+                  <Activity size={12} className="text-accent animate-pulse" />
                 </div>
-              </GlassCard>
-            </motion.div>
-          ))}
+                <p className="text-xs text-foreground/60 leading-relaxed font-mono italic">
+                  &gt; Simulating global data synchronization across 9,000+ nodes in real-time...
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right: Dimension Cards */}
+          <div className="lg:col-span-3 space-y-6">
+            <div className="grid grid-cols-1 gap-6">
+              {dimensions.map((dim, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                >
+                  <GlassCard className="flex flex-col md:flex-row gap-6 p-8 border-foreground/5 bg-white/40 dark:bg-background/40 group hover:border-accent/20 transition-all">
+                    <div className="w-12 h-12 shrink-0 rounded-2xl bg-accent/10 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors duration-500">
+                      {dim.icon}
+                    </div>
+                    <div className="space-y-2">
+                      <span className="text-[10px] font-mono font-bold text-foreground/40 uppercase tracking-[0.2em]">
+                        {dim.category}
+                      </span>
+                      <h3 className="text-xl font-bold font-outfit text-foreground group-hover:text-accent transition-colors">
+                        &quot;{dim.angle}&quot;
+                      </h3>
+                      <p className="text-sm text-foreground/60 leading-relaxed font-inter">
+                        {dim.text}
+                      </p>
+                    </div>
+                  </GlassCard>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Bottom Matrix - Aligned with the Profit/Planet/People section in Impact.tsx */}
+            <div className="grid grid-cols-3 gap-4 pt-4">
+              {['PROFIT', 'PLANET', 'PEOPLE'].map((item) => (
+                <div key={item} className="text-center p-4 rounded-2xl border border-foreground/5 bg-white/40 dark:bg-background/60">
+                  <span className="text-[10px] font-mono text-foreground/40 font-bold tracking-[0.3em]">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
