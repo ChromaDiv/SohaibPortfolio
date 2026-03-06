@@ -65,7 +65,7 @@ export function Contact() {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase font-mono font-bold text-foreground/40">Direct Transmission</p>
-                  <p className="text-sm font-bold">your-email@domain.com</p>
+                  <p className="text-sm font-bold">Hi@SohaibLatif.com</p>
                 </div>
               </div>
 
@@ -75,7 +75,7 @@ export function Contact() {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase font-mono font-bold text-foreground/40">Professional Network</p>
-                  <p className="text-sm font-bold">linkedin.com/in/username</p>
+                  <p className="text-sm font-bold">linkedin.com/in/SohaibLatif</p>
                 </div>
               </div>
             </div>

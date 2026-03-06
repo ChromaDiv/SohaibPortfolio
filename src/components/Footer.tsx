@@ -41,7 +41,7 @@ export function Footer() {
           </motion.a>
           <motion.a
             whileHover={{ y: -3 }}
-            href="mailto:contact@sohaiblatif.com" // Replace with actual email
+            href="mailto:Hi@SohaibLatif.com"
             className="text-foreground/80 hover:text-accent transition-colors"
             aria-label="Email"
           >
@@ -57,7 +57,7 @@ export function Footer() {
         </div>
 
         <div className="w-full text-center text-xs text-foreground/50 mt-4">
-          © {new Date().getFullYear()} Sohaib Latif. All rights reserved.
+          © {new Date().getFullYear()} SohaibLatif.com | All rights reserved.
         </div>
       </div>
     </footer>
